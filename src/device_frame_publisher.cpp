@@ -212,7 +212,7 @@ void readCalibrationFiles(string filesPath, vector<tf::Transform> &deviceFrames,
     if (deviceNames[i] == "ldmrs")
     {
       deviceNames[i] = "ldmrs3";
-      deviceFrames.push_back(transform * getTf(0, 0, 0, 0, -1.6, 0));
+      deviceFrames.push_back(transform * getTf(0, 0, 0, 0, -1.2, 0));
       ld_tf = transform;
       ld_push = true;
     }
@@ -228,9 +228,9 @@ void readCalibrationFiles(string filesPath, vector<tf::Transform> &deviceFrames,
     deviceNames.push_back("ldmrs1");
     deviceNames.push_back("ldmrs0");
 
-    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, -0.8, 0));
-    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, 0.8, 0));
-    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, 1.6, 0));
+    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, 0.4, 0));
+    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, -0.4, 0));
+    deviceFrames.push_back(ld_tf * getTf(0, 0, 0, 0, 1.2, 0));
     // deviceFrames.push_back(ld_tf);
   }
 }
@@ -294,7 +294,8 @@ int main(int argc, char **argv)
   vector<string> deviceNames;
   readCalibrationFiles(calibFilesP.c_str(), deviceFrames, deviceNames);
 
-  tf::Transform LD_tf = deviceFrames[deviceFrames.size() - 1] * getTf(0, 0, 0, 0, -1.6, 0);
+float ang_incid =1.2;
+  tf::Transform LD_tf = deviceFrames[deviceFrames.size() - 1] * getTf(0, 0, 0, 0, -1.2- ang_incid, 0);
 
   //  deviceFrames.push_back(getTf(0, 0, 0.5, 0, 0, 0));
   //  deviceNames.push_back("velodyne");
@@ -327,7 +328,7 @@ int main(int argc, char **argv)
 
     // Vetor entre a origem do mundo e a origem do ref do centro do carro com a mesma rotação
     // transform_final.setOrigin(transform_novo.getOrigin());
-    transform_final.setOrigin(tf::Vector3(1.772, 0, -0.168));
+    transform_final.setOrigin(tf::Vector3(1.750, 0, -0.1));
 
     transform_final.setRotation(tf::Quaternion(0, 0, 0, 1));
 
